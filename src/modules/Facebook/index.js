@@ -12,20 +12,25 @@ import handleUpdate from '../../utility/handleUpdate'
 import ComponentView from './view'
 
 import {
-    AccessToken
+    AccessToken,
 } from 'react-native-fbsdk'
 
 export default class LocalComponent extends Component {
     constructor(props) {
         super(props)
 
-        // this.state = {}
+        this.state = {
+            layout: {},
+        }
 
-        this.handleUpdate = handleUpdate(this.props.update, this.props.state)
+        this.handleUpdate = handleUpdate(
+            this.props.update,
+            this.props.state
+        )
     }
 
     componentWillUpdate() {
-        // LayoutAnimation.easeInEaseOut()
+        LayoutAnimation.easeInEaseOut()
     }
 
     render() {
@@ -34,21 +39,43 @@ export default class LocalComponent extends Component {
                 publishPermissions={
                     ["publish_actions"]
                 }
+                layout={this.state.layout}
+                text={this.props.text}
+                textStyles={this.props.textStyles}
+                onLayout={({nativeEvent}) => {
+                    const {
+                        y,
+                        x,
+                        width,
+                        height,
+                    } = nativeEvent.layout
+
+                    const layout = {
+                        top: y,
+                        left: x,
+                        width,
+                        height,
+                    }
+
+                    this.setState({
+                        layout
+                    })
+                }}
                 onLoginFinished = {
                     (error, result) => {
                         if (error) {
-                            alert("login has error: " + result.error);
+                            console.warn("login has error: " + result.error)
                         } else if (result.isCancelled) {
-                            alert("login is cancelled.");
+                            console.warn("login is cancelled.")
                         } else {
                             AccessToken.getCurrentAccessToken().then((data) => {
-                                alert(data.accessToken.toString())
+                                console.warn(data.accessToken.toString())
                             })
                         }
                     }
                 }
                 onLogoutFinished = {
-                    ()=> alert("logout.")
+                    ()=> console.warn("logout.")
                 }
             />
         )

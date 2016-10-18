@@ -16,25 +16,16 @@ export default class LocalComponent extends Component {
         // this.state = {}
 
         this.handleUpdate = handleUpdate(this.props.update, this.props.state)
-
-        this.handlePress = this.handlePress.bind(this)
     }
 
     componentWillUpdate() {
         // LayoutAnimation.easeInEaseOut()
     }
 
-    handlePress() {
-        const stateCount = this.props.state.count || 0
-        const count = stateCount + 1
-        this.handleUpdate({count})
-    }
-
     render() {
         return (
             <ComponentView
-                onPress={this.handlePress}
-                text={this.props.state.count || 0}
+                {...this.props
             />
         )
     }

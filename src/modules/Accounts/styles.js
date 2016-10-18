@@ -7,7 +7,7 @@ import {red} from '../../constants/colors'
 export default StyleSheet.create({
 	contentContainerStyle: {
 		flex: 1,
-		paddingTop: 24,
+		paddingTop: 36,
 		alignItems: 'center',
 		justifyContent: 'center',
 		backgroundColor: red,
@@ -49,12 +49,13 @@ export default StyleSheet.create({
 
 	Image: {
 		marginLeft: 8,
+		width: 180,
 	},
 
 	TextContainer: {
 		padding: 8,
-		marginTop: 12,
 		maxWidth: 320,
+		alignItems: 'flex-end',
 	},
 
 	Text: {
@@ -63,10 +64,17 @@ export default StyleSheet.create({
 		fontWeight: 'bold',
 	},
 
+	textInputContainer: {
+		flex: 1,
+		justifyContent: 'flex-end',
+	},
+
 	TextInput: {
-		height: 48,
+		marginTop: 2,
 		paddingRight: 48,
 		paddingLeft: 48,
+		// minHeight: 60,
+		flex: 1,
 	},
 
 	hr: {

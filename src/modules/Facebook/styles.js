@@ -4,24 +4,31 @@ import {red} from '../../constants/colors'
 export default StyleSheet.create({
     LoginButton: {
         position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
+        borderWidth: 1,
+        borderColor: red,
     },
 
     View: {
         alignItems: 'center',
+        borderWidth: 1,
+        borderColor: 'white',
+        padding: 16,
+        paddingHorizontal: 24,
+        flexDirection: 'row',
+        backgroundColor: red,
+    },
+
+    Cover: {
+        position: 'absolute',
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0,
+        backgroundColor: red,
     },
 
     Text: {
         textAlign: 'center',
-        fontSize: 16,
-        color: 'white',
-        // backgroundColor: red,
-        borderWidth: 1,
-        borderColor: 'white',
-        padding: 16,
-        paddingHorizontal: 32,
+        backgroundColor: red,
     },
 })

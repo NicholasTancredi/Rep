@@ -1,30 +1,18 @@
 import React from 'react'
 
-import {
-    View,
-    Text,
-    TouchableOpacity,
-} from 'react-native'
-
 import styles from './styles'
 import HorizontalTab from '../HorizontalTab'
 
+import Profile from './views/Profile'
+import ListItemExercises from './views/ListItemExercises'
+import ListItemSessions from './views/ListItemSessions'
+import ListItemPrograms from './views/ListItemPrograms'
+
 export default ({
-    text,
-    style,
-    contentContainerStyle,
-    onPress,
+    dataSource,
 }) => (
-    <HorizontalTab dataSource={[
-        {
-            title: 'Exercises',
-            collection: 'collection-exercises',
-        }, {
-            title: 'Sessions',
-            collection: 'collection-sessions',
-        }, {
-            title: 'Programs',
-            collection: 'collection-programs',
-        }
-    ]} />
+    <HorizontalTab
+        scrollViewBackgroundColor={'white'}
+        dataSource={dataSource}
+    />
 )

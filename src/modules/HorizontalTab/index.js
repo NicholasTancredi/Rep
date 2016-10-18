@@ -8,6 +8,7 @@ import {
     ScrollView,
     Text,
     TouchableOpacity,
+    LayoutAnimation,
     TouchableWithoutFeedback,
 } from 'react-native'
 
@@ -16,13 +17,6 @@ import wait from '../../utility/wait'
 import {red, darkgrey} from '../../constants/colors'
 import styles from './styles'
 import MeteorList from '../MeteorList'
-
-// import ComponentView from './view'
-const TabUnderline = ({
-
-}) => {
-
-}
 
 export default class HorizontalTab extends Component {
     constructor(props) {
@@ -65,6 +59,28 @@ export default class HorizontalTab extends Component {
         this.getActiveTabIndex = this.getActiveTabIndex.bind(this)
         this.handleTabLayout = this.handleTabLayout.bind(this)
         this.renderUnderline = this.renderUnderline.bind(this)
+
+        this.LayoutAnimation = {
+            duration: 500,
+            create: {
+              type: LayoutAnimation.Types.linear,
+              property: LayoutAnimation.Properties.opacity,
+            },
+            update: {
+              type: LayoutAnimation.Types.spring,
+              springDamping: .6,
+            },
+            delete: {
+              type: LayoutAnimation.Types.linear,
+              property: LayoutAnimation.Properties.opacity,
+            },
+        }
+    }
+
+    componentWillUpdate() {
+        LayoutAnimation.configureNext(
+            this.LayoutAnimation
+        )
     }
 
     getActiveTabIndex() {
@@ -100,6 +116,7 @@ export default class HorizontalTab extends Component {
             <MeteorList
                 key={rowId}
                 {...props}
+
                 listViewRef={ref => {
                     if (ref) {
                         const {_cachedRowCount} = ref.props.dataSource
@@ -114,10 +131,9 @@ export default class HorizontalTab extends Component {
                         }
                     }
                 }}
+
                 renderRow={
-                    ({_id}) => {
-                        return <Text>{_id}</Text>
-                    }
+                    this.props.renderRow || props => <Text>{props._id}</Text>
                 }
             />
         )
@@ -218,8 +234,12 @@ export default class HorizontalTab extends Component {
                     <ScrollView
                         horizontal={true}
                         pagingEnabled={true}
+                        bounces={false}
                         keyboardShouldPersistTaps={this.props.keyboardShouldPersistTaps}
                         contentContainerStyle={styles.tabScrollViewcontentContainer}
+                        style={{
+                            backgroundColor: this.props.scrollViewBackgroundColor || red
+                        }}
                     >
                         {this.renderTabs()}
                     </ScrollView>
@@ -243,13 +263,13 @@ export default class HorizontalTab extends Component {
                     }}
                     contentContainerStyle={[styles.flex, {
                         width: contentContainerWidth,
-                    }]}
+                    }, this.props.scrollViewContentContainerStyle]}
                 >
                     {
-                        this._props.dataSource.map((props, i) =>
+                        this._props.dataSource.map((_props, i) =>
                             this.props.renderRow
-                                ? this.props.renderRow(props, 1, i)
-                                : this.renderRow(props, 1, i)
+                                ? this.props.renderRow(_props, 1, i)
+                                : this.renderRow(_props, 1, i)
                         )
                     }
                 </ScrollView>

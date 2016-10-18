@@ -10,7 +10,7 @@ import Accounts from '../Accounts'
 export default () => (
     <ComponentView>
         <StatusBar />
-        <Navigation />
+        {/* <Navigation /> */}
         <Accounts />
     </ComponentView>
 )
